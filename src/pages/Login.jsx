@@ -25,7 +25,7 @@ const Login = () => {
     <Container size={420} my={40}>
       <Title align="center" order={2}>IAM Simulation</Title>
       <Text c="dimmed" size="sm" ta="center" mt={5}>
-        Please sign in to continue
+        Please sign in to proceed
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">

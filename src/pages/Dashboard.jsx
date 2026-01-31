@@ -8,28 +8,22 @@ import {
   Text,
   Container,
   Tabs,
-  Modal,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import useAuth from "../context/auth/useAuth";
 import useData from "../context/data/useData";
-import DocumentList from "../components/DocumentList";
 import UserList from "../components/UserList";
-import CreateDocumentForm from "../components/CreateDocumentForm";
 import Can from "../components/Can";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
-  const { fetchDocuments, fetchUsers } = useData();
+  const { fetchUsers } = useData();
   const navigate = useNavigate();
-  const [modalOpen, { open, close }] = useDisclosure(false);
 
   useEffect(() => {
-    fetchDocuments();
     if (user.permissions.includes("read:users")) {
       fetchUsers();
     }
-  }, [fetchDocuments, fetchUsers, user]);
+  }, [fetchUsers, user]);
 
   return (
     <AppShell header={{ height: 60 }} padding="md">
@@ -58,9 +52,8 @@ const Dashboard = () => {
 
       <AppShell.Main>
         <Container size="xl">
-          <Tabs defaultValue="documents">
+          <Tabs defaultValue="admin">
             <Tabs.List mb="md">
-              <Tabs.Tab value="documents">Confidential Documents</Tabs.Tab>
               <Can perform="read:users">
                 <Tabs.Tab value="admin" color="red">
                   Admin Panel
@@ -68,25 +61,11 @@ const Dashboard = () => {
               </Can>
             </Tabs.List>
 
-            <Tabs.Panel value="documents">
-              <Group justify="space-between" mb="lg">
-                <Title order={4}>Files</Title>
-                <Can perform="write:documents">
-                  <Button onClick={open}>+ New Document</Button>
-                </Can>
-              </Group>
-              <DocumentList />
-            </Tabs.Panel>
-
             <Tabs.Panel value="admin">
               <UserList />
             </Tabs.Panel>
           </Tabs>
         </Container>
-
-        <Modal opened={modalOpen} onClose={close} title="Create New Document">
-          <CreateDocumentForm onSuccess={close} />
-        </Modal>
       </AppShell.Main>
     </AppShell>
   );

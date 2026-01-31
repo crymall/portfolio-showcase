@@ -5,7 +5,6 @@ import AuthContext from "./AuthContext";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [documentsLoading, setDocumentsLoading] = useState(true);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -26,7 +25,6 @@ const AuthProvider = ({ children }) => {
         logout();
       }
     }
-    setDocumentsLoading(false);
   });
 
   useEffect(() => {
@@ -48,8 +46,8 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, documentsLoading }}>
-      {!documentsLoading && children}
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
     </AuthContext.Provider>
   );
 };

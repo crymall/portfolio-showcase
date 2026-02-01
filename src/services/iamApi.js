@@ -35,4 +35,9 @@ export const fetchUsers = async () => {
   return response.data;
 };
 
+export const updateUserRole = async (userId, roleId) => {
+  const response = await iamApi.patch(`/users/${userId}/role`, { roleId });
+  return response.data;
+};
+
 export default iamApi;

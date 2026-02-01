@@ -1,10 +1,10 @@
-import { Table, Badge, ActionIcon, Loader, Center, Text } from "@mantine/core";
+import { Table, Badge, ActionIcon, Loader, Center, Text, Select } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import useData from "../context/data/useData";
 import Can from "./Can";
 
 const UserList = () => {
-  const { users, usersLoading, deleteUser } = useData();
+  const { users, roles, usersLoading, deleteUser, updateUserRole } = useData();
 
   if (usersLoading) {
     return (
@@ -22,42 +22,59 @@ const UserList = () => {
     );
   }
 
-  const rows = users.map((user) => (
-    <Table.Tr key={user.id}>
-      <Table.Td>{user.id}</Table.Td>
-      <Table.Td>{user.username}</Table.Td>
-      <Table.Td>
-        <Badge
-          color={
-            user.role === "Admin"
-              ? "red"
-              : user.role === "Editor"
-              ? "blue"
-              : "gray"
-          }
-        >
-          {user.role}
-        </Badge>
-      </Table.Td>
-      <Table.Td>
-        <Can perform="write:users">
-          <ActionIcon
-            color="red"
-            variant="subtle"
-            onClick={() => {
-              if (
-                confirm(`Are you sure you want to delete ${user.username}?`)
-              ) {
-                deleteUser(user.id);
-              }
-            }}
+  const rows = users.map((user) => {
+    const roleObj = roles.find((r) => r.name === user.role);
+    const roleValue = roleObj ? String(roleObj.id) : null;
+
+    return (
+      <Table.Tr key={user.id}>
+        <Table.Td>{user.id}</Table.Td>
+        <Table.Td>{user.username}</Table.Td>
+        <Table.Td>
+          <Can
+            perform="write:users"
+            not={
+              <Badge
+                color={
+                  user.role === "Admin"
+                    ? "red"
+                    : user.role === "Editor"
+                    ? "blue"
+                    : "gray"
+                }
+              >
+                {user.role}
+              </Badge>
+            }
           >
-            <IconTrash size={16} />
-          </ActionIcon>
-        </Can>
-      </Table.Td>
-    </Table.Tr>
-  ));
+            <Select
+              data={roles.map((r) => ({ value: String(r.id), label: r.name }))}
+              value={roleValue}
+              onChange={(val) => updateUserRole(user.id, val)}
+              allowDeselect={false}
+            />
+          </Can>
+        </Table.Td>
+        <Table.Td>
+          <Can perform="write:users">
+            <ActionIcon
+              color="red"
+              variant="subtle"
+              onClick={() => {
+                if (
+                  confirm(`Are you sure you want to delete ${user.username}?`)
+                ) {
+                  deleteUser(user.id);
+                }
+              }}
+            >
+              <IconTrash size={16} />
+            </ActionIcon>
+          </Can>
+        </Table.Td>
+      </Table.Tr>
+    );
+  });
 
   return (
     <Table striped highlightOnHover withTableBorder>

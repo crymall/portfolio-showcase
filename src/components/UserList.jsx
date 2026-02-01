@@ -2,14 +2,14 @@ import { Table, Badge, ActionIcon, Loader, Center, Text, Select } from "@mantine
 import { IconTrash } from "@tabler/icons-react";
 import useData from "../context/data/useData";
 import Can from "./Can";
+import { ROLES } from "../constants/roles";
 
 const UserList = () => {
   const { users, usersLoading, deleteUser, updateUserRole } = useData();
-  const roleOptions = [
-    { value: "Admin", label: "Admin" },
-    { value: "Editor", label: "Editor" },
-    { value: "Viewer", label: "Viewer" },
-  ];
+  const roleOptions = Object.entries(ROLES).map(([key, value]) => ({
+    value: String(value),
+    label: String(key),
+  }));
 
   if (usersLoading) {
     return (
@@ -51,8 +51,8 @@ const UserList = () => {
           >
             <Select
               data={roleOptions}
-              value={user.role}
-              onChange={(val) => updateUserRole(user.id, val)}
+              value={ROLES[user.role] ? String(ROLES[user.role]) : null}
+              onChange={(val) => updateUserRole(user.id, Number(val))}
               allowDeselect={false}
             />
           </Can>

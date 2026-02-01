@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { notifications } from "@mantine/notifications";
 import DataContext from "./DataContext";
 import * as iamApi from "../../services/iamApi";
+import { ROLES } from "../../constants/roles";
 
 export const DataProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
@@ -37,11 +38,12 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const updateUserRole = async (userId, role) => {
+  const updateUserRole = async (userId, roleId) => {
     try {
-      await iamApi.updateUserRole(userId, role);
+      await iamApi.updateUserRole(userId, roleId);
+      const roleName = Object.keys(ROLES).find((key) => ROLES[key] === roleId);
       setUsers((prev) =>
-        prev.map((u) => (u.id === userId ? { ...u, role } : u))
+        prev.map((u) => (u.id === userId ? { ...u, role: roleName } : u))
       );
       notifications.show({
         title: "Success",

@@ -40,4 +40,7 @@ export const updateUserRole = async (userId, roleId) => {
   return response.data;
 };
 
-export default iamApi;
+export const deleteUser = async (userId) => {
+  const response = await iamApi.delete(`/users/${userId}`);
+  return response.data;
+};

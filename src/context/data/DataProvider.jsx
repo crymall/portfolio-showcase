@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { notifications } from "@mantine/notifications";
 import DataContext from "./DataContext";
-import iamApi from "../../services/iamApi";
+import * as iamApi from "../../services/iamApi";
 
 export const DataProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
@@ -10,8 +10,8 @@ export const DataProvider = ({ children }) => {
   const fetchUsers = useCallback(async () => {
     setUsersLoading(true);
     try {
-      const res = await iamApi.get("/users");
-      setUsers(res.data.users);
+      const data = await iamApi.fetchUsers();
+      setUsers(data.users);
     } catch (err) {
       console.error("Fetch users failed", err);
     } finally {
@@ -21,7 +21,7 @@ export const DataProvider = ({ children }) => {
 
   const deleteUser = async (id) => {
     try {
-      await iamApi.delete(`/users/${id}`);
+      await iamApi.deleteUser(id);
       setUsers((prev) => prev.filter((u) => u.id !== id));
       notifications.show({
         title: "Simulation",
@@ -37,6 +37,26 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const updateUserRole = async (userId, role) => {
+    try {
+      await iamApi.updateUserRole(userId, role);
+      setUsers((prev) =>
+        prev.map((u) => (u.id === userId ? { ...u, role } : u))
+      );
+      notifications.show({
+        title: "Success",
+        message: "User role updated",
+        color: "green",
+      });
+    } catch {
+      notifications.show({
+        title: "Error",
+        message: "Failed to update role",
+        color: "red",
+      });
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -44,6 +64,7 @@ export const DataProvider = ({ children }) => {
         usersLoading,
         fetchUsers,
         deleteUser,
+        updateUserRole,
       }}
     >
       {children}

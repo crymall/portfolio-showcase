@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { notifications } from "@mantine/notifications";
 import DataContext from "./DataContext";
-import api from "../../services/api";
+import iamApi from "../../services/iamApi";
 
 export const DataProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
@@ -10,7 +10,7 @@ export const DataProvider = ({ children }) => {
   const fetchUsers = useCallback(async () => {
     setUsersLoading(true);
     try {
-      const res = await api.get("/users");
+      const res = await iamApi.get("/users");
       setUsers(res.data.users);
     } catch (err) {
       console.error("Fetch users failed", err);
@@ -21,7 +21,7 @@ export const DataProvider = ({ children }) => {
 
   const deleteUser = async (id) => {
     try {
-      await api.delete(`/users/${id}`);
+      await iamApi.delete(`/users/${id}`);
       setUsers((prev) => prev.filter((u) => u.id !== id));
       notifications.show({
         title: "Simulation",

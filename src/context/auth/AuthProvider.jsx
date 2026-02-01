@@ -2,7 +2,7 @@ import { useState, useEffect, useEffectEvent } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import AuthContext from "./AuthContext";
-import * as api from "../../services/api";
+import * as iamApi from "../../services/iamApi";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -43,11 +43,11 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (username, password) => {
-    return await api.login(username, password);
+    return await iamApi.login(username, password);
   };
 
   const verifyLogin = async (userId, code) => {
-    const data = await api.verify2FA(userId, code);
+    const data = await iamApi.verify2FA(userId, code);
     processToken(data.token);
 
     const origin = location.state?.from?.pathname || "/dashboard";
@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const register = async (username, email, password) => {
-    return await api.register(username, email, password);
+    return await iamApi.register(username, email, password);
   };
 
   const logout = () => {

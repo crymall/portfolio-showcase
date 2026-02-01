@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: '/iam/api',
+const iamApi = axios.create({
+  baseURL: '/iam/',
 });
 
-api.interceptors.request.use(
+iamApi.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -16,23 +16,23 @@ api.interceptors.request.use(
 );
 
 export const login = async (username, password) => {
-  const response = await api.post('/auth/login', { username, password });
+  const response = await iamApi.post('/login', { username, password });
   return response.data;
 };
 
 export const verify2FA = async (userId, code) => {
-  const response = await api.post('/auth/verify-2fa', { userId, code });
+  const response = await iamApi.post('/verify-2fa', { userId, code });
   return response.data;
 };
 
 export const register = async (username, email, password) => {
-  const response = await api.post('/auth/register', { username, email, password });
+  const response = await iamApi.post('/register', { username, email, password });
   return response.data;
 };
 
 export const fetchUsers = async () => {
-  const response = await api.get('/users');
+  const response = await iamApi.get('/users');
   return response.data;
 };
 
-export default api;
+export default iamApi;

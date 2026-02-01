@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAuth } from '../context/auth/useAuth';
+import useAuth from "../context/auth/useAuth";
 import { TextInput, PasswordInput, Button, Paper, Title, Container, Group, Anchor, Text, Alert } from '@mantine/core';
 
 export default function Login() {

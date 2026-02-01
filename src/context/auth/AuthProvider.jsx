@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import AuthContext from "./AuthContext";
 import * as api from "../../services/api";
 
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -80,3 +80,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export default AuthProvider;

@@ -199,14 +199,28 @@ export const win95Theme = createTheme({
     }),
     Paper: Paper.extend({
       defaultProps: { radius: 0, shadow: "none", withBorder: false },
-      styles: {
-        root: {
-          backgroundColor: "#c0c0c0",
-          borderTop: "2px solid #fff",
-          borderLeft: "2px solid #fff",
-          borderRight: "2px solid #000",
-          borderBottom: "2px solid #000",
-        },
+      styles: (theme, props) => {
+        if (props.variant === "inset") {
+          return {
+            root: {
+              backgroundColor: "white",
+              borderTop: "2px solid #808080",
+              borderLeft: "2px solid #808080",
+              borderRight: "2px solid #fff",
+              borderBottom: "2px solid #fff",
+              color: "black",
+            },
+          };
+        }
+        return {
+          root: {
+            backgroundColor: "#c0c0c0",
+            borderTop: "2px solid #fff",
+            borderLeft: "2px solid #fff",
+            borderRight: "2px solid #000",
+            borderBottom: "2px solid #000",
+          },
+        };
       },
     }),
     Alert: Alert.extend({

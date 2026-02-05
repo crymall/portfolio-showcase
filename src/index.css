@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-onyx: #0a100d;
+  --color-greyOlive: #7d7e75;
+  --color-paleSlate: #b0b2b8;
+  --color-lavender: #cfd6ea;
+  --color-darkAmethyst: #210130;
+  --color-evergreen: #02290a;
+
+  --font-mono: "Chivo Mono", monospace;
+  --font-serif: "Crimson Pro", serif;
+}
+
+@layer utilities {
+  .text-shadow-hard-onyx {
+    text-shadow: 2px 2px 0 #0a100d;
+  }
+
+  .text-shadow-hard-greyOlive {
+    text-shadow: 2px 2px 0 #7d7e75;
+  }
+
+  .text-shadow-hard-paleSlate {
+    text-shadow: 2px 2px 0 #b0b2b8;
+  }
+
+  .text-shadow-hard-lavender {
+    text-shadow: 2px 2px 0 #cfd6ea;
+  }
+
+  .text-shadow-hard-darkAmethyst {
+    text-shadow: 2px 2px 0 #210130;
+  }
+
+  .text-shadow-hard-evergreen {
+    text-shadow: 2px 2px 0 #02290a;
+  }
+}

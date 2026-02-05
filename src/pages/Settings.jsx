@@ -1,9 +1,19 @@
 import { useEffect } from "react";
-import { Tabs, TextInput, Stack, Title, Paper, Group, Text, Button } from "@mantine/core";
+import {
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Field,
+  Label,
+  Input,
+} from "@headlessui/react";
 import useAuth from "../context/auth/useAuth";
 import useData from "../context/data/useData";
 import UserList from "../components/UserList";
 import Can from "../components/Can";
+import MiddenCard from "../components/MiddenCard";
 
 const Settings = () => {
   const { user } = useAuth();
@@ -16,41 +26,51 @@ const Settings = () => {
   }, [fetchUsers, user]);
 
   return (
-    <Paper p={4}>
-      <Group bg="#000080" p={2} justify="space-between" mb={2}>
-        <Text c="white" fw="bold" size="sm" px={4}>
-          Settings
-        </Text>
-        <Button size="xs" px={0} w={20} h={20}>
-          X
-        </Button>
-      </Group>
-
-      <Tabs defaultValue="profile">
-        <Tabs.List mb={4}>
-          <Tabs.Tab value="profile">Profile</Tabs.Tab>
+    <MiddenCard title="Settings">
+      <TabGroup>
+        <TabList className="flex space-x-4 border-b border-greyOlive mb-6">
+          <Tab className="px-4 py-2 text-sm font-bold focus:outline-none data-[selected]:border-b-2 data-[selected]:border-lavender data-[selected]:text-lavender text-greyOlive hover:text-paleSlate transition-colors cursor-pointer">
+            Profile
+          </Tab>
           <Can perform="read:users">
-            <Tabs.Tab value="admin">Admin Panel</Tabs.Tab>
+            <Tab className="px-4 py-2 text-sm font-bold focus:outline-none data-[selected]:border-b-2 data-[selected]:border-lavender data-[selected]:text-lavender text-greyOlive hover:text-paleSlate transition-colors cursor-pointer">
+              Admin Panel
+            </Tab>
           </Can>
-        </Tabs.List>
+        </TabList>
 
-        <Paper variant="inset" p="md" minH={400}>
-          <Tabs.Panel value="profile">
-            <Title order={4} mb="md">User Information</Title>
-            <Stack gap="md" maw={400}>
-              <TextInput label="Username" value={user.username} readOnly />
-              <TextInput label="Email" value={user.email || ''} readOnly />
-            </Stack>
-          </Tabs.Panel>
+        <TabPanels>
+          <TabPanel>
+            <h2 className="text-xl font-serif font-bold mb-4 text-white">User Information</h2>
+            <div className="space-y-4 max-w-md">
+              <Field>
+                <Label className="block text-sm font-bold mb-1 text-lavender">Username</Label>
+                <Input
+                  value={user.username}
+                  readOnly
+                  className="w-full bg-onyx border border-greyOlive text-lavender p-2 rounded focus:outline-none focus:border-lavender"
+                />
+              </Field>
+              <Field>
+                <Label className="block text-sm font-bold mb-1 text-lavender">Email</Label>
+                <Input
+                  value={user.email || ""}
+                  readOnly
+                  className="w-full bg-onyx border border-greyOlive text-lavender p-2 rounded focus:outline-none focus:border-lavender"
+                />
+              </Field>
+            </div>
+          </TabPanel>
 
-          <Tabs.Panel value="admin">
-            <Can perform="read:users">
+          <Can perform="read:users">
+            <TabPanel>
+              <h2 className="text-xl font-serif font-bold mb-4 text-white">User Admin</h2>
               <UserList />
-            </Can>
-          </Tabs.Panel>
-        </Paper>
-      </Tabs>
-    </Paper>
+            </TabPanel>
+          </Can>
+        </TabPanels>
+      </TabGroup>
+    </MiddenCard>
   );
 };
 

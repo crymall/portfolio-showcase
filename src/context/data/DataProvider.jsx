@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-import { notifications } from "@mantine/notifications";
 import DataContext from "./DataContext";
 import * as iamApi from "../../services/iamApi";
 import { ROLES } from "../../constants/roles";
@@ -24,17 +23,8 @@ export const DataProvider = ({ children }) => {
     try {
       await iamApi.deleteUser(id);
       setUsers((prev) => prev.filter((u) => u.id !== id));
-      notifications.show({
-        title: "Simulation",
-        message: 'User "deleted" (refresh to reset)',
-        color: "orange",
-      });
-    } catch {
-      notifications.show({
-        title: "Error",
-        message: "Permission Denied",
-        color: "red",
-      });
+    } catch (err) {
+      console.error("Delete user failed", err);
     }
   };
 
@@ -45,17 +35,8 @@ export const DataProvider = ({ children }) => {
       setUsers((prev) =>
         prev.map((u) => (u.id === userId ? { ...u, role: roleName } : u))
       );
-      notifications.show({
-        title: "Success",
-        message: "User role updated",
-        color: "green",
-      });
-    } catch {
-      notifications.show({
-        title: "Error",
-        message: "Failed to update role",
-        color: "red",
-      });
+    } catch (err) {
+      console.error("Update user role failed", err);
     }
   };
 

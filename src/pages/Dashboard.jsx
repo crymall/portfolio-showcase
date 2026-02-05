@@ -1,8 +1,4 @@
 import { Outlet } from "react-router-dom";
-import {
-  AppShell,
-  Container,
-} from "@mantine/core";
 import useAuth from "../context/auth/useAuth";
 import Header from "../components/Header";
 
@@ -10,15 +6,12 @@ const Dashboard = () => {
   const { user, logout } = useAuth();
 
   return (
-    <AppShell header={{ height: 60 }} padding="md">
+    <div>
       <Header user={user} logout={logout} />
-
-      <AppShell.Main>
-        <Container size="xl">
-          <Outlet />
-        </Container>
-      </AppShell.Main>
-    </AppShell>
+      <main className="min-h-screen flex justify-center items-start bg-onyx md:pt-7.5">
+        <Outlet />
+      </main>
+    </div>
   );
 };
 

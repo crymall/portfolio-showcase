@@ -5,7 +5,11 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Explorer from "./pages/Explorer";
 import Settings from "./pages/Settings";
+import Applications from "./pages/Applications";
+import Experiments from "./pages/Experiments";
+import NotFound from "./pages/NotFound";
 import RequireAuth from "./components/RequireAuth";
+import RequireNotGuest from "./components/RequireNotGuest";
 
 function App() {
   return (
@@ -18,11 +22,16 @@ function App() {
             <Route element={<RequireAuth />}>
               <Route path="/" element={<Dashboard />}>
                 <Route index element={<Explorer />} />
-                <Route path="/settings" element={<Settings />} />
+                <Route element={<RequireNotGuest />}>
+                  <Route path="/settings" element={<Settings />} />
+                </Route>
+                <Route path="/applications" element={<Applications />} />
+                <Route path="/experiments" element={<Experiments />} />
+                <Route path="*" element={<NotFound />} />
               </Route>
             </Route>
 
-            <Route path="*" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </DataProvider>
       </AuthProvider>

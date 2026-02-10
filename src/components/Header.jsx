@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Header = ({ user, logout }) => {
   const navigate = useNavigate();
+  const isGuest = user && user.username === "guest";
 
   return (
     <header className="bg-darkAmethyst p-4 flex justify-between items-center border-b-4 border-dashed border-evergreen">
@@ -18,13 +19,15 @@ const Header = ({ user, logout }) => {
         <span className="text-lavender hidden md:block">
           <strong>{user.username}</strong>
         </span>
-        <Button
-          onClick={() => navigate("/settings")}
-          aria-label="Settings"
-          className="bg-greyOlive hover:bg-paleSlate text-onyx py-1 px-3 transition-colors text-2xl"
-        >
-          🛠
-        </Button>
+        {!isGuest && (
+          <Button
+            onClick={() => navigate("/settings")}
+            aria-label="Settings"
+            className="bg-greyOlive hover:bg-paleSlate text-onyx py-1 px-3 transition-colors text-2xl"
+          >
+            🛠
+          </Button>
+        )}
         <Button
           onClick={() => {
             logout();

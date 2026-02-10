@@ -23,6 +23,7 @@ export default function Login() {
     try {
       if (mode === "login") {
         const data = await login(username, password);
+        if (data.token) return;
         setUserId(data.userId);
         setInfo(data.message || "Enter the code sent to your email.");
         setMode("2fa");
@@ -43,6 +44,18 @@ export default function Login() {
     setMode(mode === "login" ? "register" : "login");
     setError("");
     setInfo("");
+  };
+
+  const handleGuestLogin = async () => {
+    setError("");
+    setInfo("");
+    try {
+      const data = await login("guest", "guest");
+      if (data.token) return;
+      // Fallback if guest login somehow triggers 2FA flow
+    } catch (err) {
+      setError(err.response?.data?.error || "Guest login failed");
+    }
   };
 
   return (
@@ -155,12 +168,22 @@ export default function Login() {
             )}
 
             {mode === "login" && (
-              <button
-                onClick={toggleMode}
-                className="mt-2 text-center text-sm text-lavender underline hover:text-white"
-              >
-                Create account
-              </button>
+              <>
+                <button
+                  type="button"
+                  onClick={toggleMode}
+                  className="mt-2 text-center text-sm text-lavender underline hover:text-white"
+                >
+                  Create Account
+                </button>
+                <button
+                  type="button"
+                  onClick={handleGuestLogin}
+                  className="text-center text-sm text-lavender underline hover:text-white"
+                >
+                  Guest Login
+                </button>
+              </>
             )}
           </div>
         </form>

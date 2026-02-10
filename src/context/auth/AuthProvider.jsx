@@ -43,14 +43,20 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (username, password) => {
-    return await iamApi.login(username, password);
+    const data = await iamApi.login(username, password);
+    if (data.token) {
+      processToken(data.token);
+      const origin = location.state?.from?.pathname || "/";
+      navigate(origin);
+    }
+    return data;
   };
 
   const verifyLogin = async (userId, code) => {
     const data = await iamApi.verify2FA(userId, code);
     processToken(data.token);
 
-    const origin = location.state?.from?.pathname || "/dashboard";
+    const origin = location.state?.from?.pathname || "/";
     navigate(origin);
 
     return data;

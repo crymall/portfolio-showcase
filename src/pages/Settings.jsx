@@ -41,7 +41,7 @@ const Settings = () => {
 
         <TabPanels>
           <TabPanel>
-            <h2 className="mb-4 font-serif text-xl font-bold text-white">
+            <h2 className="mb-4 font-mono text-xl font-bold text-white">
               User Information
             </h2>
             <div className="max-w-md space-y-4">
@@ -70,7 +70,7 @@ const Settings = () => {
 
           <Can perform="read:users">
             <TabPanel>
-              <h2 className="mb-4 font-serif text-xl font-bold text-white">
+              <h2 className="mb-4 font-mono text-xl font-bold text-white">
                 User Admin
               </h2>
               <UserList />

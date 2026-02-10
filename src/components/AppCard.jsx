@@ -10,7 +10,7 @@ const AppCard = ({ to, symbol, label, small = false, description }) => {
 
   const content = (
     <>
-      <div className="flex flex-1 items-end justify-center pb-2">
+      <div className="flex flex-1 items-end justify-center pb-1">
         <span
           className={small ? "text-3xl" : "text-3xl sm:text-5xl md:text-6xl"}
         >
@@ -30,7 +30,7 @@ const AppCard = ({ to, symbol, label, small = false, description }) => {
         </span>
       </div>
       {description && (
-        <div className="bg-paleSlate border-evergreen pointer-events-none absolute top-2 left-1 z-50 w-[220%] -translate-x-4 border-4 border-dashed p-4 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
+        <div className="bg-paleSlate border-evergreen pointer-events-none absolute top-full left-0 z-50 w-[220%] -translate-x-4 border-4 border-dashed p-4 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
           <p className="text-md text-onyx text-left font-mono">{description}</p>
         </div>
       )}

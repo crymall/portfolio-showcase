@@ -59,9 +59,9 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-onyx font-mono text-lavender">
-      <div className="w-full min-h-screen md:min-h-0 md:max-w-md bg-darkAmethyst md:border-dashed md:border-4 md:border-evergreen p-8 flex flex-col justify-center">
-        <h1 className="text-4xl font-gothic tracking-wide font-bold mb-6 text-center text-white text-shadow-hard-greyOlive">
+    <div className="bg-onyx text-lavender flex min-h-screen items-center justify-center font-mono">
+      <div className="bg-darkAmethyst md:border-evergreen flex min-h-screen w-full flex-col justify-center p-8 md:min-h-0 md:max-w-md md:border-4 md:border-dashed">
+        <h1 className="font-gothic text-shadow-hard-greyOlive mb-6 text-center text-4xl font-bold tracking-wide text-white">
           {mode === "2fa"
             ? "2-Factor Verification"
             : mode === "register"
@@ -70,12 +70,12 @@ export default function Login() {
         </h1>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-900/50 border border-red-500 text-red-200 text-sm">
+          <div className="mb-4 border border-red-500 bg-red-900/50 p-3 text-sm text-red-200">
             {error}
           </div>
         )}
         {info && (
-          <div className="mb-4 p-3 bg-blue-900/50 border border-blue-500 text-blue-200 text-sm">
+          <div className="mb-4 border border-blue-500 bg-blue-900/50 p-3 text-sm text-blue-200">
             {info}
           </div>
         )}
@@ -83,11 +83,11 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="space-y-6 md:space-y-4">
           {mode === "2fa" ? (
             <Field>
-              <Label className="block text-sm font-bold mb-1">
+              <Label className="mb-1 block text-sm font-bold">
                 Verification Code
               </Label>
               <Input
-                className="w-full bg-onyx border border-greyOlive text-lavender p-2 focus:outline-none focus:border-lavender"
+                className="bg-onyx border-greyOlive text-lavender focus:border-lavender w-full border p-2 focus:outline-none"
                 type="text"
                 placeholder="123456"
                 required
@@ -98,9 +98,9 @@ export default function Login() {
           ) : (
             <>
               <Field>
-                <Label className="block text-sm font-bold mb-1">Username</Label>
+                <Label className="mb-1 block text-sm font-bold">Username</Label>
                 <Input
-                  className="w-full bg-onyx border border-greyOlive text-lavender p-2 focus:outline-none focus:border-lavender"
+                  className="bg-onyx border-greyOlive text-lavender focus:border-lavender w-full border p-2 focus:outline-none"
                   type="text"
                   placeholder="Your username"
                   required
@@ -111,9 +111,9 @@ export default function Login() {
 
               {mode === "register" && (
                 <Field>
-                  <Label className="block text-sm font-bold mb-1">Email</Label>
+                  <Label className="mb-1 block text-sm font-bold">Email</Label>
                   <Input
-                    className="w-full bg-onyx border border-greyOlive text-lavender p-2 focus:outline-none focus:border-lavender"
+                    className="bg-onyx border-greyOlive text-lavender focus:border-lavender w-full border p-2 focus:outline-none"
                     type="email"
                     placeholder="you@example.com"
                     required
@@ -124,9 +124,9 @@ export default function Login() {
               )}
 
               <Field>
-                <Label className="block text-sm font-bold mb-1">Password</Label>
+                <Label className="mb-1 block text-sm font-bold">Password</Label>
                 <Input
-                  className="w-full bg-onyx border border-greyOlive text-lavender p-2 focus:outline-none focus:border-lavender"
+                  className="bg-onyx border-greyOlive text-lavender focus:border-lavender w-full border p-2 focus:outline-none"
                   type="password"
                   placeholder="Your password"
                   required
@@ -137,10 +137,10 @@ export default function Login() {
             </>
           )}
 
-          <div className="flex flex-col gap-3 mt-6">
+          <div className="mt-6 flex flex-col gap-3">
             <Button
               type="submit"
-              className="w-full bg-greyOlive hover:bg-paleSlate text-onyx font-bold py-2 px-4 transition-colors"
+              className="bg-greyOlive hover:bg-paleSlate text-onyx w-full px-4 py-2 font-bold transition-colors"
             >
               {mode === "2fa"
                 ? "Verify"
@@ -152,7 +152,7 @@ export default function Login() {
               <Button
                 type="button"
                 onClick={toggleMode}
-                className="text-sm text-paleSlate hover:text-white underline"
+                className="text-paleSlate text-sm underline hover:text-white"
               >
                 Already have an account? Login
               </Button>
@@ -161,7 +161,7 @@ export default function Login() {
               <Button
                 type="button"
                 onClick={() => setMode("login")}
-                className="text-sm text-paleSlate hover:text-white underline"
+                className="text-paleSlate text-sm underline hover:text-white"
               >
                 Back to Login
               </Button>
@@ -172,14 +172,14 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={toggleMode}
-                  className="mt-2 text-center text-sm text-lavender underline hover:text-white"
+                  className="text-lavender mt-2 text-center text-sm underline hover:text-white"
                 >
                   Create Account
                 </button>
                 <button
                   type="button"
                   onClick={handleGuestLogin}
-                  className="text-center text-sm text-lavender underline hover:text-white"
+                  className="text-lavender text-center text-sm underline hover:text-white"
                 >
                   Guest Login
                 </button>

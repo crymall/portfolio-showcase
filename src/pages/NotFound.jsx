@@ -4,14 +4,14 @@ import MiddenCard from "../components/MiddenCard";
 const NotFound = () => {
   return (
     <MiddenCard>
-      <div className="flex flex-col items-center gap-6 text-center mt-4">
-        <h2 className="text-8xl font-gothic font-bold mb-4 text-white">404</h2>
-        <p className="text-xl text-center">
+      <div className="mt-4 flex flex-col items-center gap-6 text-center">
+        <h2 className="font-gothic mb-4 text-8xl font-bold text-white">404</h2>
+        <p className="text-center text-xl">
           The page you are looking for does not exist in this pile.
         </p>
         <Link
           to="/"
-          className="text-lavender underline hover:text-white text-lg"
+          className="text-lavender text-lg underline hover:text-white"
         >
           Return to Midden
         </Link>

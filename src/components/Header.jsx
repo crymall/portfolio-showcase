@@ -6,11 +6,11 @@ const Header = ({ user, logout }) => {
   const isGuest = user && user.username === "guest";
 
   return (
-    <header className="bg-darkAmethyst p-4 flex justify-between items-center border-b-4 border-dashed border-evergreen">
+    <header className="bg-darkAmethyst border-evergreen flex items-center justify-between border-b-4 border-dashed p-4">
       <div>
         <h1
           onClick={() => navigate("/")}
-          className="text-5xl font-gothic text-white cursor-pointer hover:text-lavender transition-colors text-shadow-hard-greyOlive text-shadow-lg tracking-wide"
+          className="font-gothic hover:text-lavender text-shadow-hard-greyOlive cursor-pointer text-5xl tracking-wide text-white transition-colors text-shadow-lg"
         >
           Midden
         </h1>
@@ -23,7 +23,7 @@ const Header = ({ user, logout }) => {
           <Button
             onClick={() => navigate("/settings")}
             aria-label="Settings"
-            className="bg-greyOlive hover:bg-paleSlate text-onyx py-1 px-3 transition-colors text-2xl"
+            className="bg-greyOlive hover:bg-paleSlate text-onyx px-3 py-1 text-2xl transition-colors"
           >
             🛠
           </Button>
@@ -34,7 +34,7 @@ const Header = ({ user, logout }) => {
             navigate("/login");
           }}
           aria-label="Logout"
-          className="bg-greyOlive hover:bg-paleSlate text-onyx py-1 px-3 transition-colors text-2xl"
+          className="bg-greyOlive hover:bg-paleSlate text-onyx px-3 py-1 text-2xl transition-colors"
         >
           🚪→
         </Button>

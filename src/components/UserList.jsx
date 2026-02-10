@@ -12,71 +12,83 @@ const UserList = () => {
   }));
 
   if (usersLoading) {
-    return (
-      <div className="text-lavender p-4">Loading...</div>
-    );
+    return <div className="text-lavender p-4">Loading...</div>;
   }
 
   if (!users || users.length === 0) {
-    return (
-      <p className="text-paleSlate p-4">No users found.</p>
-    );
+    return <p className="text-paleSlate p-4">No users found.</p>;
   }
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-greyOlive/30">
+      <table className="divide-greyOlive/30 min-w-full divide-y">
         <thead className="bg-white/5">
           <tr>
-            <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">ID</th>
-            <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Username</th>
-            <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Role</th>
-            <th className="px-4 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Actions</th>
+            <th className="px-4 py-3 text-left text-xs font-bold tracking-wider text-white uppercase">
+              ID
+            </th>
+            <th className="px-4 py-3 text-left text-xs font-bold tracking-wider text-white uppercase">
+              Username
+            </th>
+            <th className="px-4 py-3 text-left text-xs font-bold tracking-wider text-white uppercase">
+              Role
+            </th>
+            <th className="px-4 py-3 text-left text-xs font-bold tracking-wider text-white uppercase">
+              Actions
+            </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-greyOlive/30">
-        {users.map((user) => {
-          const isCurrentUser = currentUser && currentUser.id === user.id;
-          const isAdmin = user.role === "Admin";
-          const isDisabled = isCurrentUser || isAdmin;
+        <tbody className="divide-greyOlive/30 divide-y">
+          {users.map((user) => {
+            const isCurrentUser = currentUser && currentUser.id === user.id;
+            const isAdmin = user.role === "Admin";
+            const isDisabled = isCurrentUser || isAdmin;
 
-          return (
-            <tr key={user.id} className="hover:bg-white/5 transition-colors">
-              <td className="px-4 py-3 whitespace-nowrap text-sm text-lavender">{user.id}</td>
-              <td className="px-4 py-3 whitespace-nowrap text-sm text-lavender font-bold">{user.username}</td>
-              <td className="px-4 py-3 whitespace-nowrap text-sm">
-                <Select
-                  className="bg-onyx border border-greyOlive text-lavender text-sm p-1 focus:outline-none focus:border-lavender w-full min-w-[100px]"
-                  value={ROLES[user.role] ? String(ROLES[user.role]) : ""}
-                  onChange={(e) => updateUserRole(user.id, Number(e.target.value))}
-                  disabled={isDisabled}
-                >
-                  {roleOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </Select>
-              </td>
-              <td className="px-4 py-3 whitespace-nowrap text-sm">
-                <Button
-                  className="bg-red-950 hover:bg-red-900 border border-red-800 px-2 py-1 text-base transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={isDisabled}
-                  aria-label="Delete User"
-                  onClick={() => {
-                    if (
-                      confirm(`Are you sure you want to delete ${user.username}?`)
-                    ) {
-                      deleteUser(user.id);
+            return (
+              <tr key={user.id} className="transition-colors hover:bg-white/5">
+                <td className="text-lavender px-4 py-3 text-sm whitespace-nowrap">
+                  {user.id}
+                </td>
+                <td className="text-lavender px-4 py-3 text-sm font-bold whitespace-nowrap">
+                  {user.username}
+                </td>
+                <td className="px-4 py-3 text-sm whitespace-nowrap">
+                  <Select
+                    className="bg-onyx border-greyOlive text-lavender focus:border-lavender w-full min-w-25 border p-1 text-sm focus:outline-none"
+                    value={ROLES[user.role] ? String(ROLES[user.role]) : ""}
+                    onChange={(e) =>
+                      updateUserRole(user.id, Number(e.target.value))
                     }
-                  }}
-                >
-                  ❌
-                </Button>
-              </td>
-            </tr>
-          );
-        })}
+                    disabled={isDisabled}
+                  >
+                    {roleOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </Select>
+                </td>
+                <td className="px-4 py-3 text-sm whitespace-nowrap">
+                  <Button
+                    className="border border-red-800 bg-red-950 px-2 py-1 text-base transition-colors hover:bg-red-900 disabled:cursor-not-allowed disabled:opacity-50"
+                    disabled={isDisabled}
+                    aria-label="Delete User"
+                    onClick={() => {
+                      if (
+                        confirm(
+                          `Are you sure you want to delete ${user.username}?`,
+                        )
+                      ) {
+                        deleteUser(user.id);
+                      }
+                    }}
+                  >
+                    ❌
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

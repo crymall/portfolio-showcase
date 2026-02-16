@@ -3,7 +3,7 @@ import { Button, Select } from "@headlessui/react";
 import useData from "../../context/data/useData";
 import MiddenCard from "../../components/MiddenCard";
 import RecipeList from "../../components/canteen/RecipeList";
-import RecipeFilter from "../../components/Canteen/RecipeFilter";
+import RecipeFilter from "../../components/canteen/RecipeFilter";
 
 const RecipeSearch = () => {
   const { recipes, recipesLoading, getRecipes } = useData();

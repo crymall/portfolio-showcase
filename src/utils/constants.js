@@ -13,7 +13,23 @@ export const navMeta = {
   canteen: {
     title: "Canteen",
     titleLink: "/applications/canteen",
-    navLinks: [],
+    navLinks: [
+      {
+        to: "/applications/canteen/recipes",
+        label: "Recipe Search",
+        ariaLabel: "recipe-search",
+      },
+      {
+        to: "/applications/canteen/recipes/new",
+        label: "New Recipe",
+        ariaLabel: "new-recipe",
+      },
+      {
+        to: "/",
+        label: "Back to Midden",
+        ariaLabel: "back-to-midden",
+      }
+    ],
   },
 };
 

@@ -1,7 +1,9 @@
+import MiddenCard from "../../components/MiddenCard";
 import RecipeSearch from "./RecipeSearch";
 
 const CanteenHome = () => {
-  return <RecipeSearch />;
+  return <MiddenCard title={"Canteen"}>
+  </MiddenCard>;
 };
 
 export default CanteenHome;

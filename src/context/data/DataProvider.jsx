@@ -96,13 +96,17 @@ export const DataProvider = ({ children }) => {
     }
   }, []);
 
-  const getIngredients = useCallback(async () => {
+  const getIngredients = useCallback(async (limit = 100, offset = 0, name = "") => {
     try {
-      const data = await canteenApi.fetchIngredients(100, 0);
+      const data = await canteenApi.fetchIngredients(limit, offset, name);
       setIngredients(data);
     } catch (err) {
       console.error("Fetch ingredients failed", err);
     }
+  }, []);
+
+  const clearIngredients = useCallback(() => {
+    setIngredients([]);
   }, []);
 
   const getTags = useCallback(async () => {
@@ -139,6 +143,33 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const createRecipe = async (recipeData) => {
+    const data = await canteenApi.createRecipe(recipeData);
+    return data;
+  };
+
+  const createTag = async (name) => {
+    try {
+      const data = await canteenApi.createTag(name);
+      setTags((prev) => [...prev, data]);
+      return data;
+    } catch (err) {
+      console.error("Create tag failed", err);
+      throw err;
+    }
+  };
+
+  const createIngredient = async (name) => {
+    try {
+      const data = await canteenApi.createIngredient(name);
+      setIngredients((prev) => [data, ...prev]);
+      return data;
+    } catch (err) {
+      console.error("Create ingredient failed", err);
+      throw err;
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -157,9 +188,13 @@ export const DataProvider = ({ children }) => {
         getPopularRecipes,
         getRecipe,
         getIngredients,
+        clearIngredients,
         getTags,
         getUserLists,
         toggleRecipeLike,
+        createRecipe,
+        createTag,
+        createIngredient,
         canteenApi,
       }}
     >

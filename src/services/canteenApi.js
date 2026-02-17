@@ -89,9 +89,9 @@ export const removeRecipeIngredient = async (recipeId, ingredientId) => {
   return response.data;
 };
 
-export const fetchIngredients = async (limit, offset) => {
+export const fetchIngredients = async (limit, offset, name) => {
   const response = await canteenApi.get("/ingredients", {
-    params: { limit, offset },
+    params: { limit, offset, name },
   });
   return response.data;
 };

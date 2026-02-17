@@ -33,7 +33,7 @@ const Header = ({ user, logout, title, titleLink, navLinks }) => {
                 key={link.to}
                 to={link.to}
                 aria-label={link.ariaLabel}
-                className="hover:text-lightestGrey font-mono text-lg text-white transition-colors"
+                className="hover:text-lightestGrey font-mono text-white transition-colors"
               >
                 {link.label}
               </Link>

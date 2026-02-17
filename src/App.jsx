@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import CanteenHome from "./pages/Canteen/CanteenHome";
 import RecipeSearch from "./pages/Canteen/RecipeSearch";
 import RecipeDetail from "./pages/Canteen/RecipeDetail";
+import NewRecipe from "./pages/Canteen/NewRecipe";
 import RequireAuth from "./components/gateways/RequireAuth";
 import RequireNotGuest from "./components/gateways/RequireNotGuest";
 import { navMeta } from "./utils/constants";
@@ -29,6 +30,7 @@ function App() {
               >
                 <Route index element={<CanteenHome />} />
                 <Route path="recipes" element={<RecipeSearch />} />
+                <Route path="recipes/new" element={<NewRecipe />} />
                 <Route path="recipes/:id" element={<RecipeDetail />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
